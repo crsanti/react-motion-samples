@@ -1,0 +1,25 @@
+svg {
+  path{
+    &.ruler{
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      stroke-width: 0.5;
+      stroke-opacity:1;
+      stroke: #4a4a4a;
+      stroke-dashoffset: 0;
+      display: block;
+      fill: none;
+      fill-opacity: 0.0;
+      &:nth-of-type(5n){
+        stroke-width: 0.5;
+        stroke: #747070;
+      }
+    }
+    &.draw{
+      stroke: #3ca19d;
+    }
+    &.control{
+      stroke: #a139a0;
+    }
+  }
+}

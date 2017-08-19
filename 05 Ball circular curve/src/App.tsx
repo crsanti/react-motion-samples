@@ -1,28 +1,23 @@
 import * as React from 'react';
 import './App.scss';
 import { Slider } from './Slider';
-import { Curve } from './Curve';
-import { Coordinates } from './entities';
+import { CarthesianCoordinates } from './entities';
 import { Ball } from './Ball';
 import { Circle } from './Circle';
+import { VisualElements } from './VisualElements';
+import { AutoSizer } from 'react-virtualized';
 
 interface State {
   lineLength: number;
   fromBegining: boolean;
-  to: number;
 }
 
-const STARTING_POINT: Coordinates = {
-  x: 50,
-  y: 100,
-};
 export class App extends React.Component<{}, State> {
   constructor() {
     super();
     this.state = {
-      lineLength: 600,
+      lineLength: 300,
       fromBegining: true,
-      to: STARTING_POINT.x,
     };
   }
 
@@ -39,24 +34,33 @@ export class App extends React.Component<{}, State> {
             value={this.state.lineLength}
             onChange={this.lineLengthChange}
           />
-          <button className="app-btn btn btn-default" onClick={this.onStart}>Start</button>
-          <button className="app-btn btn btn-default" onClick={this.onReset}>Reset</button>
+          <div className="form-group">
+            <button className="app-btn btn btn-default" onClick={this.onStart}>Start</button>
+            <button className="app-btn btn btn-default" onClick={this.onReset}>Reset</button>
+          </div>
         </div>
         <div className="svg-container">
-          <svg className="svg">
-            <Curve
-              from={STARTING_POINT}
-              to={{ x: this.state.lineLength, y: STARTING_POINT.y }}
-              heightRatio={0.15}
-            />
-            <Ball
-              x={STARTING_POINT.x}
-              y={STARTING_POINT.y}
-              reverse={this.state.fromBegining}
-              to={this.state.to}
-              maxDistance={this.state.lineLength}
-            />
-          </svg>
+          <AutoSizer>
+            {({ width, height }) => {
+              const centerPoint: CarthesianCoordinates = {
+                x: width / 2,
+                y: height / 2,
+              };
+              return (
+                <svg width={width} height={height} className="svg">
+                  <VisualElements
+                    centerPoint={centerPoint}
+                    diameter={this.state.lineLength}
+                  />
+                  <Ball
+                    centerPoint={centerPoint}
+                    diameter={this.state.lineLength}
+                    fromBegining={this.state.fromBegining}
+                  />
+                </svg>
+              );
+            }}
+          </AutoSizer>
         </div>
       </div>
     );
@@ -72,7 +76,6 @@ export class App extends React.Component<{}, State> {
     if (this.state.fromBegining) {
       this.setState({
         fromBegining: false,
-        to: this.state.lineLength,
       });
     }
   }
@@ -81,7 +84,6 @@ export class App extends React.Component<{}, State> {
     if (!this.state.fromBegining) {
       this.setState({
         fromBegining: true,
-        to: STARTING_POINT.x,
       });
     }
   }

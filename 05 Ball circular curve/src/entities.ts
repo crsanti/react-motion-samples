@@ -1,4 +1,4 @@
-export interface Coordinates {
+export interface CarthesianCoordinates {
   x: number;
   y: number;
 }

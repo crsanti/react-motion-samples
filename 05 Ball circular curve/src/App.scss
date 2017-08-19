@@ -23,8 +23,6 @@ html, #root, .app, body {
 }
 
 .svg-container{
-  // background-color: #333;
-  margin-top: 10px;
   color:#ccc;
   padding: 10px;
   flex-grow: 1;
@@ -36,11 +34,6 @@ html, #root, .app, body {
 
 .svg{
   border: solid 1px #247a1f;
-  height: 100%;
-}
-
-.commands {
-  padding: 50px 0 0 50px;
 }
 
 .app-btn {

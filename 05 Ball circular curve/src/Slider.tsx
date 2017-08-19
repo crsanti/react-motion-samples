@@ -10,7 +10,7 @@ interface Props {
 
 export const Slider: React.StatelessComponent<Props> = (props) => {
   return (
-    <div className="row">
+    <div className="row form-group">
       <div className="col-md-10 col-xs-12">
         <input
           type="range"
@@ -21,7 +21,7 @@ export const Slider: React.StatelessComponent<Props> = (props) => {
           onChange={props.onChange}
         />
       </div>
-      <div className="col-md-2">
+      <div className="col-md-2 col-xs-12">
         <input type="text" className="form-control" value={props.value} onChange={props.onChange} />
       </div>
     </div>

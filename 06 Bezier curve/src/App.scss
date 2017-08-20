@@ -27,9 +27,7 @@ html, #root, .app, body {
 }
 
 .svg-container{
-  // background-color: #333;
   overflow: hidden;
-  margin-top: 10px;
   color:#ccc;
   padding: 10px 20px;
   flex-grow: 1;
@@ -42,7 +40,7 @@ html, #root, .app, body {
 }
 
 .commands {
-  padding: 50px 0 0 50px;
+  padding: 50px 50px 0;
 }
 
 .app-btn {

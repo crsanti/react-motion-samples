@@ -9,7 +9,7 @@ interface Props {
   heightRatio: number;
 }
 
-export const Curve: React.StatelessComponent<Props> = (props) => {
+export const VisualElements: React.StatelessComponent<Props> = (props) => {
   const distance = getDistanceBetweenPoints(props.from, props.to);
   const center: CarthesianCoordinates = {
     x: (props.from.x + props.to.x) / 2,
@@ -106,4 +106,4 @@ export const Curve: React.StatelessComponent<Props> = (props) => {
   );
 };
 
-Curve.displayName = 'Curve';
+VisualElements.displayName = 'Curve';

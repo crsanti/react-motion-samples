@@ -7,10 +7,8 @@ import { bezier3 } from './utils/bezier';
 
 interface Props {
   from: CarthesianCoordinates;
-  reverse?: boolean;
+  fromBegining?: boolean;
   to: CarthesianCoordinates;
-  maxDistance?: number;
-  destination: CarthesianCoordinates;
 }
 
 const BALL_WIDTH = 50;
@@ -21,22 +19,22 @@ const SPRING_CONFIG: SpringHelperConfig = {
 export class Ball extends React.PureComponent<Props> {
   render() {
     const color = getRandomColor();
-    const distance = getDistanceBetweenPoints(this.props.from, this.props.destination) || 1;
+    const distance = getDistanceBetweenPoints(this.props.from, this.props.to);
+    const springValue = this.props.fromBegining ? 0 : distance;
     const center: CarthesianCoordinates = {
       x: (this.props.from.x + this.props.to.x) / 2,
       y: (this.props.from.y + this.props.to.y) / 2
     };
     const modifierPoint: CarthesianCoordinates = {
       x: center.x,
-      y: center.y - distance / 3
+      y: center.y - distance / 3 // constant
     };
     return (
       <g>
-        <Motion style={{ x: spring(distance, SPRING_CONFIG) }}>
+        <Motion style={{ x: spring(springValue, SPRING_CONFIG) }}>
           {({ x }) => {
-            const t = this.props.reverse ? distance - x / distance : x / distance;
+            const t = x / distance; // The 3 rule
             const point = bezier3(this.props.from, this.props.to, modifierPoint, t);
-            console.log(JSON.stringify(point), x, distance);
             return (
               <g>
                 <circle
@@ -44,7 +42,7 @@ export class Ball extends React.PureComponent<Props> {
                   cy={this.props.from.y}
                   r={BALL_WIDTH / 2}
                   fill={color}
-                  transform={`translate(${point.x - this.props.to.x}, ${point.y - this.props.to.y})`}
+                  transform={`translate(${point.x - this.props.from.x}, ${point.y - this.props.from.y})`}
                 />
               </g>
             );

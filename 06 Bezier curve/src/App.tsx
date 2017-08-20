@@ -1,10 +1,9 @@
 import * as React from 'react';
 import './App.scss';
 import { Slider } from './Slider';
-import { Curve } from './Curve';
+import { VisualElements } from './VisualElements';
 import { CarthesianCoordinates } from './entities';
 import { Ball } from './Ball';
-import { Circle } from './Circle';
 import { AutoSizer } from 'react-virtualized';
 
 interface State {
@@ -33,14 +32,14 @@ export class App extends React.Component<{}, State> {
     const maxHeight = innerHeight / 2.8;
     return (
       <div className="app">
-        <div className="form-group commands">
+        <div className="commands">
           <Slider
             min={0}
             max={maxWidth}
             value={this.state.lineLength}
             onChange={this.lineLengthChange}
           />
-          <div className="col-xs-12">
+          <div className="form-group">
             <button className="app-btn btn btn-default" onClick={this.onStart}>Start</button>
             <button className="app-btn btn btn-default" onClick={this.onReset}>Reset</button>
           </div>
@@ -62,11 +61,10 @@ export class App extends React.Component<{}, State> {
                 <svg width={width} height={height} className="svg">
                   <Ball
                     from={from}
-                    to={this.state.fromBegining ? from : to}
-                    reverse={this.state.fromBegining}
-                    destination={to}
+                    to={to}
+                    fromBegining={this.state.fromBegining}
                   />
-                  <Curve
+                  <VisualElements
                     from={from}
                     to={to}
                     heightRatio={0.25}

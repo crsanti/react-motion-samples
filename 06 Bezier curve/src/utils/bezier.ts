@@ -21,12 +21,11 @@ export const bezier3 = (
   modifierPoint: CarthesianCoordinates,
   t: number,
 ): CarthesianCoordinates => {
-  const x = getBezierCoordinate3(originPoint.x, destinationPoint.x, modifierPoint.x, t);
-  const y = getBezierCoordinate3(originPoint.y, destinationPoint.y, modifierPoint.y, t);
-
+  const x = getQuadraticBezierDimension(originPoint.x, destinationPoint.x, modifierPoint.x, t);
+  const y = getQuadraticBezierDimension(originPoint.y, destinationPoint.y, modifierPoint.y, t);
   return { x, y };
 };
 
-const getBezierCoordinate3 = (origin: number, destination: number, modifier: number, t: number) => {
+const getQuadraticBezierDimension = (origin: number, destination: number, modifier: number, t: number) => {
   return Math.pow((1 - t), 2) * origin + 2 * t * (1 - t) * modifier + Math.pow(t, 2) * destination;
 };
